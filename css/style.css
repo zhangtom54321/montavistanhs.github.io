@@ -14,7 +14,7 @@
     padding: 14px 20px;
     margin-bottom: 20px;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     cursor: pointer;
 }
 .submitButton:hover {
@@ -24,10 +24,10 @@
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 40px;
-    margin: 0px 100px;
+    margin: 0px 50px;
 }
 .boundingBox{
-  padding: 0px 100px;
+  padding: 0px 50px;
   text-align: center;
 }
 .alert {
@@ -35,7 +35,7 @@
     background-color: #f44336; /* Red */
     color: white;
     padding: 10px 20px;
-    margin: 10px 100px;
+    margin: 10px 50px;
     border-radius: 0px;
 }
 #loading {
