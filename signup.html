@@ -56,10 +56,14 @@
             }, function(error) {
               if (error) {
                 // Error occured
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("errorMsg").innerHTML = "An error occured";
+                document.getElementById("errorMsg").style.visibility = "visible";
               } else {
                 // Set up storage
                 var transcriptRef = firebase.storage().ref().child("transcripts/" + uid + "/transcript");
                 transcriptRef.put(transcript).then(function(snapshot) {
+                  document.getElementById("loading").style.display = "none";
                   window.location.href = "dashboard.html"; // automatically redirects to the dashboard
                 });
               }
@@ -70,6 +74,9 @@
         });
       }).catch(function(error) {
         // An error happened.
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("errorMsg").innerHTML = "An error occured";
+        document.getElementById("errorMsg").style.visibility = "visible";
       });
     </script>
   </head>
@@ -127,13 +134,17 @@
         }
       });
     </script>
+    <div class="alert" id="errorMsg" style="visibility: hidden"></div>
     <div class="boundingBox">
-      <div class="alert" id="errorMsg" style="visibility: hidden"></div>
       <button id = "signupBtn" onClick="firebaseSignup()" class="submitButton">Sign Up</button>
-      <a href="login.html">Already an account? Login here.</a>
+      <a href="login.html" style="">Already have an account? Login here.</a><br>
+      <div id="loading">
+        <img src="images/loading.gif" alt="Loading..." style="width:146px;height:123px;margin-top:200px">
+      </div>
     </div>
     <script>
       function firebaseSignup() {
+        document.getElementById("loading").style.display = "block";
         var memberName = document.getElementById("memberName").value;
         var email = document.getElementById("email").value;
         var password1 = document.getElementById("password1").value;
@@ -149,30 +160,37 @@
         //document.getElementById("title").innerHTML = transcript;
 
         if (memberName.length == 0){
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please enter your name";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else if (email.length == 0){
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please enter your email address";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else if (password1.length == 0) {
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please enter your password";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else if (password2.length == 0) {
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please confirm your password";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else if (password1 != password2) {
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please make sure that your password and confirm password are identical";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else if (grade == 0) {
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please select your current grade";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else if (transcript == "") {
+          document.getElementById("loading").style.display = "none";
           document.getElementById("errorMsg").innerHTML = "Please upload your transcript";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
@@ -181,6 +199,7 @@
           document.getElementById("errorMsg").style.visibility = "hidden";
           firebase.auth().createUserWithEmailAndPassword(email, password1).catch(function(error) {
             // Handle Errors here.
+            document.getElementById("loading").style.display = "none";
             var errorCode = error.code;
             var errorMessage = error.message;
             document.getElementById("errorMsg").innerHTML = "Sign Up Error: " + errorMessage;
