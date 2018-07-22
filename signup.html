@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login to your MVNHS Account</title>
+    <title>Signup for a MVNHS Account</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,10 +28,16 @@
       firebase.initializeApp(config);
     </script>
     <script>
+    // First sign out any current logged-in users
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in.
-          window.location.href = "dashboard.html"; // automatically redirects to the dashboard if the user is already signed in
+          window.location.href = "login.html"; // automatically redirects to the dashboard if the user is already signed in
         } else {
           // User is signed out.
         }
@@ -40,53 +46,64 @@
   </head>
   <body>
     <noscript>Sorry, your browser does not support JavaScript or Javascript is not enabled. This site will not work properly on your browser. Please enable Javascript or use a browser that supports Javascript.</noscript>
-    <h1 id="title">Login</h1>
-    <form id="loginForm">
+    <h1 id="title">Signup</h1>
+    <form id="signupForm">
       Email:<br>
       <input type="text" id="email"><br>
       Password:<br>
-      <input type="password" id="password"><br>
+      <input type="password" id="password1"><br>
+      Confirm Password:<br>
+      <input type="password" id="password2"><br>
     </form>
     <script>
-      // Allows the enter key to be pressed to trigger the "login" button
-      var input = document.getElementById("loginForm");
+      // Allows the enter key to be pressed to trigger the "signup" button
+      var input = document.getElementById("signupForm");
       // Execute a function when the user releases a key on the keyboard
       input.addEventListener("keyup", function(event) {
         // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
           // Trigger the button element with a click
-          document.getElementById("loginBtn").click();
+          document.getElementById("signupBtn").click();
         }
       });
     </script>
     <div class="alert" id="errorMsg" style="visibility: hidden"></div>
-    <button id = "loginBtn" onClick="firebaseLogin()">Login</button>
+    <button id = "signupBtn" onClick="firebaseSignup()">Signup</button>
     <script>
-      function firebaseLogin() {
+      function firebaseSignup() {
         var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
+        var password1 = document.getElementById("password1").value;
+        var password2 = document.getElementById("password2").value;
         if (email.length == 0){
           document.getElementById("errorMsg").innerHTML = "Please enter an email address";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
-        else if (password.length == 0) {
+        else if (password1.length == 0) {
           document.getElementById("errorMsg").innerHTML = "Please enter a password";
+          document.getElementById("errorMsg").style.visibility = "visible";
+        }
+        else if (password2.length == 0) {
+          document.getElementById("errorMsg").innerHTML = "Please confirm your password";
+          document.getElementById("errorMsg").style.visibility = "visible";
+        }
+        else if (password1 != password2) {
+          document.getElementById("errorMsg").innerHTML = "Please check that the password and confirm password are the same";
           document.getElementById("errorMsg").style.visibility = "visible";
         }
         else {
           document.getElementById("errorMsg").innerHTML = "";
           document.getElementById("errorMsg").style.visibility = "hidden";
-          firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          firebase.auth().createUserWithEmailAndPassword(email, password1).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            document.getElementById("errorMsg").innerHTML = "Error: " + errorMessage;
+            document.getElementById("errorMsg").innerHTML = "Signup Error: " + errorMessage;
             document.getElementById("errorMsg").style.visibility = "visible";
-            // ...
           });
+
         }
       }
     </script>
-    <a href="signup.html">Don't have an account? Signup here.</a>
+    <a href="login.html">Already an account? Login here.</a>
   </body>
 </html>
