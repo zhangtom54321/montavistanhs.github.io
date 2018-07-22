@@ -50,8 +50,13 @@
               email: email,
               grade: grade,
               hours: 0
+            }, function(error) {
+              if (error) {
+                // Error occured
+              } else {
+                window.location.href = "dashboard.html"; // automatically redirects to the dashboard
+              }
             });
-            window.location.href = "dashboard.html"; // automatically redirects to the dashboard
           } else {
             // User is signed out.
           }
