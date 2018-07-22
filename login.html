@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login to your MVNHS Account</title>
+    <title>Log in to your MVNHS Account</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,7 @@
   </head>
   <body>
     <noscript>Sorry, your browser does not support JavaScript or Javascript is not enabled. This site will not work properly on your browser. Please enable Javascript or use a browser that supports Javascript.</noscript>
-    <h1 id="title">Login</h1>
+    <h1 id="title">Log In</h1>
     <form id="loginForm">
       Email:<br>
       <input type="text" id="email"><br>
@@ -60,7 +60,7 @@
       });
     </script>
     <div class="alert" id="errorMsg" style="visibility: hidden"></div>
-    <button id = "loginBtn" onClick="firebaseLogin()">Login</button>
+    <button id = "loginBtn" onClick="firebaseLogin()">Log In</button>
     <script>
       function firebaseLogin() {
         var email = document.getElementById("email").value;
@@ -87,6 +87,6 @@
         }
       }
     </script>
-    <a href="signup.html">Don't have an account? Signup here.</a>
+    <a href="signup.html">Don't have an account? Sign up here.</a>
   </body>
 </html>
