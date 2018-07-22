@@ -10,6 +10,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- Setting up Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
@@ -74,23 +75,25 @@
   </head>
   <body>
     <noscript>Sorry, your browser does not support JavaScript or Javascript is not enabled. This site will not work properly on your browser. Please enable Javascript or use a browser that supports Javascript.</noscript>
-    <h1 id="title">Sign Up</h1>
-    <form id="signupForm">
+    <form id="signupForm" class="form">
+      <h1 id="title">Sign Up</h1>
       Name (first, middle initial, and last):<br>
-      <input type="text" id="memberName"><br>
+      <input type="text" id="memberName" class="inputBox"><br>
       Email:<br>
-      <input type="email" id="email"><br>
+      <input type="email" id="email" class="inputBox"><br>
       Password:<br>
-      <input type="password" id="password1"><br>
+      <input type="password" id="password1" class="inputBox"><br>
       Confirm Password:<br>
-      <input type="password" id="password2"><br>
+      <input type="password" id="password2" class="inputBox"><br>
+    </form>
+    <form id="gradeForm" class="form">
       Grade:<br>
       <input type="radio" name="grade" value=9>9th<br>
       <input type="radio" name="grade" value=10>10th<br>
       <input type="radio" name="grade" value=11>11th<br>
       <input type="radio" name="grade" value=12>12th<br>
     </form>
-    <form enctype="multipart/form-data">
+    <form id="transcriptForm" enctype="multipart/form-data" class="form">
       Transcript:<br>
       <input type="file" id="transcript"><br>
     </form>
@@ -105,9 +108,30 @@
           document.getElementById("signupBtn").click();
         }
       });
+      var input = document.getElementById("gradeForm");
+      // Execute a function when the user releases a key on the keyboard
+      input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Trigger the button element with a click
+          document.getElementById("signupBtn").click();
+        }
+      });
+      var input = document.getElementById("transcriptForm");
+      // Execute a function when the user releases a key on the keyboard
+      input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Trigger the button element with a click
+          document.getElementById("signupBtn").click();
+        }
+      });
     </script>
-    <div class="alert" id="errorMsg" style="visibility: hidden"></div>
-    <button id = "signupBtn" onClick="firebaseSignup()">Sign Up</button>
+    <div class="boundingBox">
+      <div class="alert" id="errorMsg" style="visibility: hidden"></div>
+      <button id = "signupBtn" onClick="firebaseSignup()" class="submitButton">Sign Up</button>
+      <a href="login.html">Already an account? Login here.</a>
+    </div>
     <script>
       function firebaseSignup() {
         var memberName = document.getElementById("memberName").value;
@@ -166,6 +190,5 @@
         }
       }
     </script>
-    <a href="login.html">Already an account? Login here.</a>
   </body>
 </html>
