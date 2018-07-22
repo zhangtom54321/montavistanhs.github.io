@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>Login to your MVNHS Account</title>
 
     <!-- Bootstrap core CSS -->
@@ -15,9 +11,7 @@
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
 
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
-
+    <!-- Setting up Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
@@ -34,42 +28,64 @@
       firebase.initializeApp(config);
     </script>
     <script>
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      var uiConfig = {
-        callbacks: {
-          signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            // User successfully signed in.
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
-            return true;
-          },
-          uiShown: function() {
-            // The widget is rendered.
-            // Hide the loader.
-            document.getElementById('loader').style.display = 'none';
-          }
-        },
-        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-        signInFlow: 'popup',
-        signInSuccessUrl: 'dashboard.html',
-        signInOptions: [
-          {
-            provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            requireDisplayName: false
-          }
-        ],
-      };
-      ui.start('#firebaseui-auth-container', uiConfig);
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          window.location.href = "dashboard.html"; // automatically redirects to the dashboard if the user is already signed in
+        } else {
+          // User is signed out.
+        }
+      });
     </script>
-
   </head>
-
   <body>
-    <h1> "Test" </h1>
-    <h1>Welcome to My Awesome App</h1>
-    <div id="firebaseui-auth-container"></div>
-    <div id="loader">Loading...</div>
-
+    <noscript>Sorry, your browser does not support JavaScript or Javascript is not enabled. This site will not work properly on your browser. Please enable Javascript or use a browser that supports Javascript.</noscript>
+    <h1 id="title">Login</h1>
+    <form id="loginForm">
+      Email:<br>
+      <input type="text" id="email"><br>
+      Password:<br>
+      <input type="password" id="password"><br>
+    </form>
+    <script>
+      // Allows the enter key to be pressed to trigger the "login" button
+      var input = document.getElementById("loginForm");
+      // Execute a function when the user releases a key on the keyboard
+      input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Trigger the button element with a click
+          document.getElementById("loginBtn").click();
+        }
+      });
+    </script>
+    <div class="alert" id="errorMsg" style="visibility: hidden"></div>
+    <button id = "loginBtn" onClick="firebaseLogin()">Login</button>
+    <script>
+      function firebaseLogin() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        if (email.length == 0){
+          document.getElementById("errorMsg").innerHTML = "Please enter an email address";
+          document.getElementById("errorMsg").style.visibility = "visible";
+        }
+        else if (password.length == 0) {
+          document.getElementById("errorMsg").innerHTML = "Please enter a password";
+          document.getElementById("errorMsg").style.visibility = "visible";
+        }
+        else {
+          document.getElementById("errorMsg").innerHTML = "";
+          document.getElementById("errorMsg").style.visibility = "hidden";
+          firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            document.getElementById("errorMsg").innerHTML = "Error: " + errorMessage;
+            document.getElementById("errorMsg").style.visibility = "visible";
+            // ...
+          });
+        }
+      }
+    </script>
   </body>
 </html>
