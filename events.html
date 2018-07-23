@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Events</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Setting up Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyBnOCmhnhkabFmce3umULC3viU50W0z_AI",
+          authDomain: "mvnhs-70ecc.firebaseapp.com",
+          databaseURL: "https://mvnhs-70ecc.firebaseio.com",
+          projectId: "mvnhs-70ecc",
+          storageBucket: "mvnhs-70ecc.appspot.com",
+          messagingSenderId: "175567916647"
+        };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          var uid = user.uid;
+          /*firebase.database().ref("users/"+uid+"/hours").once("value").then(function(snapshot) {
+            document.getElementById("hoursCount").innerHTML = "Hours: " + snapshot.val();
+          });*/
+        } else {
+          // User is signed out.
+          window.location.href = "login.html"; // automatically redirects to the login page if user is not signed in
+        }
+      });
+    </script>
+    <script> // Setting up event information from Firebase
+
+    // Event One // UPDATE
+    var eventName = "Test Event"; // UPDATE
+    firebase.database().ref("events/" + eventName + "/date").once("value").then(function(snapshot) {
+      var date = snapshot.val();
+      firebase.database().ref("events/" + eventName + "/description").once("value").then(function(snapshot) {
+        var description = snapshot.val();
+        firebase.database().ref("events/" + eventName + "/hours").once("value").then(function(snapshot) {
+          var hours = snapshot.val();
+          firebase.database().ref("events/" + eventName + "/location").once("value").then(function(snapshot) {
+            var location = snapshot.val();
+            firebase.database().ref("events/" + eventName + "/picture").once("value").then(function(snapshot) {
+              var picture = snapshot.val();
+              firebase.database().ref("events/" + eventName + "/time").once("value").then(function(snapshot) {
+                var time = snapshot.val();
+                console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
+                // Show which members are going
+                var membersRef = firebase.database().ref().child("events/"+eventName+"/members");
+                var memberList = "";
+                membersRef.once("value", function(snapshot) {
+                  snapshot.forEach(function(child) {
+                    if (child.val() == true) {
+                      memberList = memberList + "<br>" + child.key;
+                    }
+                  })
+                  console.log("Member attending: " + memberList);
+                  document.getElementById("titleOne").innerHTML = eventName; // UPDATE
+                  document.getElementById("descriptionOne").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + " (" + hours + " volunteer hours)<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
+                  document.getElementById("imageOne").src=picture; // UPDATE
+                });
+              });
+            });
+
+          });
+        });
+      });
+    });
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Monta Vista National Honor Society</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="events.html">Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login/Signup</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">Upcoming Volunteer Events</h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Events</li>
+      </ol>
+
+      <!-- Event One --> <!-- UPDATE -->
+      <div class="row">
+        <div class="col-md-7">
+          <a href="">
+            <img id="imageOne"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+          </a>
+        </div>
+        <div class="col-md-5">
+          <h3 id="titleOne">Loading info...</h3> <!-- UPDATE -->
+          <p id="descriptionOne">Loading info...</p> <!-- UPDATE -->
+          <a class="btn btn-primary" style="color: white" onclick="signup('Test Event')">Sign Up for Event <!-- UPDATE -->
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+          <script>
+            function signup(eventName) { // UPDATE
+              var userId = firebase.auth().currentUser.uid;
+              // Get the user's full name
+              var name;
+              firebase.database().ref("users/" + userId + "/name").once("value").then(function(snapshot) {
+                name = snapshot.val();
+                console.log(name);
+                firebase.database().ref("events/" + eventName + "/members/" + name).once("value").then(function(snapshot) {
+                  if (snapshot.val() == true) {
+                    // Member has already signed up
+                    console.log("Signed up");
+                    window.alert("You've already signed up for " + eventName + ". Pick a different event!");
+                  } else {
+                    // Member has not signed up yet
+                    console.log("Not signed up");
+                    // Add user's name to the list of people who signed up
+                    var memberRegisteredKey = firebase.database().ref().child("events/" + eventName + "/members").push().key;
+                    var updates = {};
+                    updates["/" + name] = true;
+                    firebase.database().ref().child("events/" + eventName + "/members").update(updates);
+
+                    // Get number of hours for event
+                    var eventHours;
+                    firebase.database().ref("events/" + eventName + "/hours").once("value").then(function(snapshot) {
+                      eventHours = snapshot.val();
+                      console.log("Event hours: " + eventHours);
+                      // Get user's current hours
+                      var userHoursRef = firebase.database().ref("users/" + userId + "/hours");
+                      userHoursRef.once("value").then(function(snapshot) {
+                        var currUserHours = snapshot.val();
+                        console.log("Current hours: " + currUserHours);
+                        // Update user's hours after event
+                        var newUserHoursKey = firebase.database().ref().child("users/" + userId).push().key;
+                        var updates = {};
+                        updates["/hours"] = currUserHours + eventHours;
+                        firebase.database().ref().child("users/" + userId).update(updates, function(error) {
+                          if (error) {
+                                // The write failed...
+                                window.alert("Sign up unsuccessful, please try again.");
+                          } else {
+                                // Data saved successfully!
+                                window.alert("Sign up for " + eventName + " successful!");
+                                location.reload();
+                          }
+                        });
+                      });
+
+                    });
+                  }
+                });
+              });
+            }
+          </script>
+        </div>
+      </div>
+      <!-- /.row -->
+      <hr>
+
+      <!-- Pagination -->
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="events.html">Upcoming Events</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="past_events.html">Past Events</a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
