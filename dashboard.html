@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>MVNHS Dashboard</title>
+    <title>Dashboard - MVNHS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +36,9 @@
           firebase.database().ref("users/"+uid+"/hours").once("value").then(function(snapshot) {
             document.getElementById("hoursCount").innerHTML = "Hours: " + snapshot.val();
           });
+          var email = user.email;
+          document.getElementById("loginsignup").innerHTML = "Sign out";
+          document.getElementById("loginsignup").setAttribute('href', 'signout.html');
         } else {
           // User is signed out.
           window.location.href = "login.html"; // automatically redirects to the login page if user is not signed in
@@ -66,12 +69,13 @@
               <a class="nav-link" href="dashboard.html">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login/Signup</a>
+              <a class="nav-link" href="login.html" id="loginsignup">Login/Signup</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+
     <h1>Dashboard</h1>
     <p id="hoursCount">Loading hours...</p>
 
@@ -79,11 +83,7 @@
     <button id = "signoutBtn" onClick="firebaseSignout()">Sign Out</button>
     <script>
       function firebaseSignout() {
-        firebase.auth().signOut().then(function() {
-          // Sign-out successful.
-        }).catch(function(error) {
-          // An error happened.
-        });
+        window.location.href = "signout.html";
       }
     </script>
   </body>

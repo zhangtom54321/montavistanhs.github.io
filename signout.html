@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <!-- Setting up Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyBnOCmhnhkabFmce3umULC3viU50W0z_AI",
+          authDomain: "mvnhs-70ecc.firebaseapp.com",
+          databaseURL: "https://mvnhs-70ecc.firebaseio.com",
+          projectId: "mvnhs-70ecc",
+          storageBucket: "mvnhs-70ecc.appspot.com",
+          messagingSenderId: "175567916647"
+        };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        alert("Sign out successful!")
+        window.location.href = "login.html";
+      }).catch(function(error) {
+        // An error happened.
+        window.location.href = "signout.html";
+      });
+    </script>
+  </head>
+</html>

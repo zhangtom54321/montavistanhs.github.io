@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Events</title>
+    <title>Events - MVNHS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,6 +38,9 @@
         if (user) {
           // User is signed in.
           var uid = user.uid;
+          var email = user.email;
+          document.getElementById("loginsignup").innerHTML = "Sign out";
+          document.getElementById("loginsignup").setAttribute('href', 'signout.html');
           /*firebase.database().ref("users/"+uid+"/hours").once("value").then(function(snapshot) {
             document.getElementById("hoursCount").innerHTML = "Hours: " + snapshot.val();
           });*/
@@ -114,7 +117,7 @@
               <a class="nav-link" href="dashboard.html">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login/Signup</a>
+              <a class="nav-link" href="login.html" id="loginsignup">Login/Signup</a>
             </li>
           </ul>
         </div>
@@ -210,9 +213,6 @@
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="events.html">Upcoming Events</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="past_events.html">Past Events</a>
         </li>
       </ul>
 

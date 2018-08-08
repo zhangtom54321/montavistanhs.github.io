@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign up for a MVNHS Account</title>
+    <title>Signup - MVNHS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -35,9 +35,11 @@
         // Sign-out successful.
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
+            var email = user.email;
+            document.getElementById("loginsignup").innerHTML = "Sign out";
+            document.getElementById("loginsignup").setAttribute('href', 'signout.html');
             // User is signed in.
             var uid = user.uid;
-            var email = user.email;
             var memberName = document.getElementById("memberName").value;
             var gradeOptions = document.getElementsByName("grade");
             var grade = 0;
@@ -103,7 +105,7 @@
               <a class="nav-link" href="dashboard.html">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login/Signup</a>
+              <a class="nav-link" href="login.html" id="loginsignup">Login/Signup</a>
             </li>
           </ul>
         </div>

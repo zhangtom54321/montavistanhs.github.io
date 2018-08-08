@@ -8,13 +8,43 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Modern Business - Start Bootstrap Template</title>
+    <title>About - MVNHS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Setting up Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyBnOCmhnhkabFmce3umULC3viU50W0z_AI",
+          authDomain: "mvnhs-70ecc.firebaseapp.com",
+          databaseURL: "https://mvnhs-70ecc.firebaseio.com",
+          projectId: "mvnhs-70ecc",
+          storageBucket: "mvnhs-70ecc.appspot.com",
+          messagingSenderId: "175567916647"
+        };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          var uid = user.uid;
+          var email = user.email;
+          document.getElementById("loginsignup").innerHTML = "Sign out";
+          document.getElementById("loginsignup").setAttribute('href', 'signout.html');
+        } else {
+          // User is signed out.
+        }
+      });
+    </script>
 
   </head>
 
@@ -42,7 +72,7 @@
               <a class="nav-link" href="dashboard.html">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login/Signup</a>
+              <a class="nav-link" href="login.html" id="loginsignup">Login/Signup</a>
             </li>
           </ul>
         </div>
