@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>Dashboard - MVNHS</title>
 
     <!-- Bootstrap core CSS -->
@@ -30,11 +35,13 @@
     </script>
     <script>
       firebase.auth().onAuthStateChanged(function(user) {
+        //document.getElementById("loading").style.display = "block";
         if (user) {
           // User is signed in.
           var uid = user.uid;
           firebase.database().ref("users/"+uid+"/hours").once("value").then(function(snapshot) {
             document.getElementById("hoursCount").innerHTML = "Hours: " + snapshot.val();
+            document.getElementById("loading").style.display = "none";
           });
           var email = user.email;
           document.getElementById("loginsignup").innerHTML = "Sign out";
@@ -76,15 +83,48 @@
       </div>
     </nav>
 
-    <h1>Dashboard</h1>
-    <p id="hoursCount">Loading hours...</p>
+    <div class="container">
+      <div class="boundingBox">
+        <div id="loading" style="display:block">
+          <img src="images/loading.gif" alt="Loading..." style="width:150px;height:150px;margin-top:200px">
+        </div>
+      </div>
 
+      <h1 class="mt-4 mb-3">Dashboard</h1>
 
-    <button id = "signoutBtn" onClick="firebaseSignout()">Sign Out</button>
-    <script>
-      function firebaseSignout() {
-        window.location.href = "signout.html";
-      }
-    </script>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+
+      <div class="form" style="margin: 30px 0px">
+        <h5 id="hoursCount">Loading hours...</h5>
+        <hr>
+        <button id = "signoutBtn" class = "logoutButton" onClick="firebaseSignout()">Sign Out</button>
+        <script>
+          function firebaseSignout() {
+            window.location.href = "signout.html";
+          }
+        </script>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
   </body>
 </html>

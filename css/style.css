@@ -20,6 +20,19 @@
 .submitButton:hover {
     background-color: #45a049;
 }
+.logoutButton {
+    width: 100%;
+    background-color: #FF0000;
+    color: white;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.logoutButton:hover {
+    background-color: #d10000;
+}
 .form{
     border-radius: 0px;
     background-color: #f2f2f2;
@@ -47,7 +60,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255,255,255,0.5); /* Black background with opacity */
+    background-color: rgba(255,255,255,0.9); /* White background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 }
