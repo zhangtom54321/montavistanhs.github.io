@@ -64,13 +64,6 @@
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 }
-#parallax {
-  /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 .parallax {
 
     /* Set a specific height */
@@ -81,4 +74,109 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+body, html {
+    height: 100%;
+}
+
+/* The hero image */
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/volunteering2.jpg");
+
+
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+
+    /* Set a specific height */
+    height: 75%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+/* THE ROUND PSEUDO-ELEMENT HOVER STYLES */
+
+.round,
+.svg,
+.highlight {
+		max-width: 960px;
+		margin:0 auto;
+}
+
+.round a {
+		color: white;
+}
+
+.round .button {
+		display: inline-block;
+		width: 130px;
+		height: 40px;
+		line-height: 40px;
+		margin: 20px;
+		position: relative;
+		overflow: hidden;
+		border: 2px solid white;
+		transition: color .5s;
+}
+
+.round .button:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		background: #0091ff;
+		height: 150px;
+		width: 200px;
+		border-radius: 50%;
+}
+
+.round .button:hover {
+		color: #fff;
+}
+
+.round .button:nth-child(1):before {
+		top: 100%;
+		left: 100%;
+		transition: all .7s;
+}
+
+.round .button:nth-child(1):hover:before {
+		top: -30px;
+		left: -30px;
+}
+
+.round .button:nth-child(2):before {
+		left: -30px;
+		bottom: 100%;
+		transition: all .7s;
+}
+
+.round .button:nth-child(2):hover:before {
+		bottom: -50px;
+}
+
+.round .button:nth-child(3):before {
+		top: 0;
+		left: -200%;
+		transition: all .7s;
+}
+
+.round .button:nth-child(3):hover:before {
+		top: -30px;
+		left: -30px;
 }
