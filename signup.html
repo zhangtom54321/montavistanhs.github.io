@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" type="image/png" href="images/logo2.png"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Signup - MVNHS</title>
@@ -63,7 +64,7 @@
                 document.getElementById("errorMsg").style.visibility = "visible";
               } else {
                 // Set up storage
-                var transcriptRef = firebase.storage().ref().child("transcripts/" + uid + "/transcript");
+                var transcriptRef = firebase.storage().ref().child("transcripts/" + memberName + "_" + email + "_" + uid + "/transcript");
                 transcriptRef.put(transcript).then(function(snapshot) {
                   document.getElementById("loading").style.display = "none";
                   window.location.href = "dashboard.html"; // automatically redirects to the dashboard
@@ -113,64 +114,81 @@
       </div>
     </nav>
     <noscript>Sorry, your browser does not support JavaScript or Javascript is not enabled. This site will not work properly on your browser. Please enable Javascript or use a browser that supports Javascript.</noscript>
-    <form id="signupForm" class="form" style="margin-top:30px">
-      <h1 id="title">Sign Up</h1>
-      Name (first, middle initial, and last):<br>
-      <input type="text" id="memberName" class="inputBox"><br>
-      Email:<br>
-      <input type="email" id="email" class="inputBox"><br>
-      Password:<br>
-      <input type="password" id="password1" class="inputBox"><br>
-      Confirm Password:<br>
-      <input type="password" id="password2" class="inputBox"><br>
-    </form>
-    <form id="gradeForm" class="form">
-      Grade:<br>
-      <input type="radio" name="grade" value=9>9th<br>
-      <input type="radio" name="grade" value=10>10th<br>
-      <input type="radio" name="grade" value=11>11th<br>
-      <input type="radio" name="grade" value=12>12th<br>
-    </form>
-    <form id="transcriptForm" enctype="multipart/form-data" class="form">
-      Transcript:<br>
-      <input type="file" id="transcript"><br>
-    </form>
-    <script>
-      // Allows the enter key to be pressed to trigger the "signup" button
-      var input = document.getElementById("signupForm");
-      // Execute a function when the user releases a key on the keyboard
-      input.addEventListener("keyup", function(event) {
-        // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-          // Trigger the button element with a click
-          document.getElementById("signupBtn").click();
-        }
-      });
-      var input = document.getElementById("gradeForm");
-      // Execute a function when the user releases a key on the keyboard
-      input.addEventListener("keyup", function(event) {
-        // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-          // Trigger the button element with a click
-          document.getElementById("signupBtn").click();
-        }
-      });
-      var input = document.getElementById("transcriptForm");
-      // Execute a function when the user releases a key on the keyboard
-      input.addEventListener("keyup", function(event) {
-        // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-          // Trigger the button element with a click
-          document.getElementById("signupBtn").click();
-        }
-      });
-    </script>
-    <div class="alert" id="errorMsg" style="visibility: hidden"></div>
-    <div class="boundingBox">
-      <button id = "signupBtn" onClick="firebaseSignup()" class="submitButton">Sign Up</button>
-      <a href="login.html" style="">Already have an account? Login here.</a><br>
-      <div id="loading">
-        <img src="images/loading.gif" alt="Loading..." style="width:150px;height:150px;margin-top:200px">
+
+    <div class="hero-image" id="loginHero" style="height: 30%;">
+      <div class="hero-text">
+        <h1 class="w3-animate-left" style="font-size: 80px;"><b>Signup</b></h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <br>
+      <!-- Page Heading/Breadcrumbs -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Signup</li>
+      </ol>
+
+      <form id="signupForm" class="form" style="margin-top:30px">
+        Name (first, middle initial, and last):<br>
+        <input type="text" id="memberName" class="inputBox"><br>
+        Email:<br>
+        <input type="email" id="email" class="inputBox"><br>
+        Password:<br>
+        <input type="password" id="password1" class="inputBox"><br>
+        Confirm Password:<br>
+        <input type="password" id="password2" class="inputBox"><br>
+      </form>
+      <form id="gradeForm" class="form">
+        Grade:<br>
+        <input type="radio" name="grade" value=9>9th<br>
+        <input type="radio" name="grade" value=10>10th<br>
+        <input type="radio" name="grade" value=11>11th<br>
+        <input type="radio" name="grade" value=12>12th<br>
+      </form>
+      <form id="transcriptForm" enctype="multipart/form-data" class="form">
+        Transcript:<br>
+        <input type="file" id="transcript"><br>
+      </form>
+      <script>
+        // Allows the enter key to be pressed to trigger the "signup" button
+        var input = document.getElementById("signupForm");
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (event.keyCode === 13) {
+            // Trigger the button element with a click
+            document.getElementById("signupBtn").click();
+          }
+        });
+        var input = document.getElementById("gradeForm");
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (event.keyCode === 13) {
+            // Trigger the button element with a click
+            document.getElementById("signupBtn").click();
+          }
+        });
+        var input = document.getElementById("transcriptForm");
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (event.keyCode === 13) {
+            // Trigger the button element with a click
+            document.getElementById("signupBtn").click();
+          }
+        });
+      </script>
+      <div class="alert" id="errorMsg" style="visibility: hidden"></div>
+      <div class="boundingBox">
+        <button id = "signupBtn" onClick="firebaseSignup()" class="submitButton">Sign Up</button>
+        <a href="login.html" style="">Already have an account? Login here.</a><br>
+        <div id="loading">
+          <img src="images/loading.gif" alt="Loading..." style="width:150px;height:150px;margin-top:200px">
+        </div>
       </div>
     </div>
     <script>

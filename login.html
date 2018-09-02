@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" type="image/png" href="images/logo2.png"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login - MVNHS</title>
@@ -75,55 +76,73 @@
     </nav>
     <noscript>Sorry, your browser does not support JavaScript or Javascript is not enabled. This site will not work properly on your browser. Please enable Javascript or use a browser that supports Javascript.</noscript>
 
-    <form id="loginForm" class="form" style="margin-top:30px">
-      <h1 id="title">Log In</h1>
-      Email:<br>
-      <input type="text" id="email" class="inputBox"><br>
-      Password:<br>
-      <input type="password" id="password" class="inputBox"><br>
-    </form>
-    <script>
-      // Allows the enter key to be pressed to trigger the "login" button
-      var input = document.getElementById("loginForm");
-      // Execute a function when the user releases a key on the keyboard
-      input.addEventListener("keyup", function(event) {
-        // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-          // Trigger the button element with a click
-          document.getElementById("loginBtn").click();
-        }
-      });
-    </script>
-    <div class="alert" id="errorMsg" style="visibility: hidden"></div>
-    <div class="boundingBox">
-      <button id = "loginBtn" onClick="firebaseLogin()" class=submitButton>Log In</button>
-      <a href="signup.html" style="">Don't have an account? Sign up here.</a>
+    <div class="hero-image" id="loginHero" style="height: 30%;">
+      <div class="hero-text">
+        <h1 class="w3-animate-left" style="font-size: 80px;"><b>Login</b></h1>
+      </div>
     </div>
-    <script>
-      function firebaseLogin() {
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        if (email.length == 0){
-          document.getElementById("errorMsg").innerHTML = "Please enter an email address";
-          document.getElementById("errorMsg").style.visibility = "visible";
-        }
-        else if (password.length == 0) {
-          document.getElementById("errorMsg").innerHTML = "Please enter a password";
-          document.getElementById("errorMsg").style.visibility = "visible";
-        }
-        else {
-          document.getElementById("errorMsg").innerHTML = "";
-          document.getElementById("errorMsg").style.visibility = "hidden";
-          firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            document.getElementById("errorMsg").innerHTML = "Error: " + errorMessage;
+
+    <div class="container">
+      <br>
+      <!-- Page Heading/Breadcrumbs -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Login</li>
+      </ol>
+
+      <form id="loginForm" class="form" style="margin-top:30px">
+        Email:<br>
+        <input type="text" id="email" class="inputBox"><br>
+        Password:<br>
+        <input type="password" id="password" class="inputBox"><br>
+      </form>
+      <script>
+        // Allows the enter key to be pressed to trigger the "login" button
+        var input = document.getElementById("loginForm");
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (event.keyCode === 13) {
+            // Trigger the button element with a click
+            document.getElementById("loginBtn").click();
+          }
+        });
+      </script>
+      <div class="alert" id="errorMsg" style="visibility: hidden"></div>
+      <div class="boundingBox">
+        <button id = "loginBtn" onClick="firebaseLogin()" class=submitButton>Log In</button>
+        <a href="signup.html" style="">Don't have an account? Sign up here.</a>
+      </div>
+      <script>
+        function firebaseLogin() {
+          var email = document.getElementById("email").value;
+          var password = document.getElementById("password").value;
+          if (email.length == 0){
+            document.getElementById("errorMsg").innerHTML = "Please enter an email address";
             document.getElementById("errorMsg").style.visibility = "visible";
-            // ...
-          });
+          }
+          else if (password.length == 0) {
+            document.getElementById("errorMsg").innerHTML = "Please enter a password";
+            document.getElementById("errorMsg").style.visibility = "visible";
+          }
+          else {
+            document.getElementById("errorMsg").innerHTML = "";
+            document.getElementById("errorMsg").style.visibility = "hidden";
+            firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              document.getElementById("errorMsg").innerHTML = "Error: " + errorMessage;
+              document.getElementById("errorMsg").style.visibility = "visible";
+              // ...
+            });
+          }
         }
-      }
-    </script>
+      </script>
+    </div>
+
+
   </body>
 </html>
