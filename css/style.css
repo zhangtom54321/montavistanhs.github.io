@@ -139,7 +139,7 @@ body, html {
 		content: "";
 		position: absolute;
 		z-index: -1;
-		background: #0091ff;
+		background: #0076dd;
 		height: 150px;
 		width: 200px;
 		border-radius: 50%;
@@ -180,3 +180,16 @@ body, html {
 		top: -30px;
 		left: -30px;
 }
+.w3-animate-left{
+    position:relative;
+    animation:animateleft 1s
+@keyframes animateleft{
+    from{
+      left:-300px;opacity:0
+    } to{
+      left:0;opacity:1
+    }
+}
+
+.w3-animate-right{position:relative;animation:animateright 1s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+.w3-animate-opacity{animation:opac 3s}@keyframes opac{from{opacity:0} to{opacity:1}}
