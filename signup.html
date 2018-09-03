@@ -64,7 +64,7 @@
                 document.getElementById("errorMsg").style.visibility = "visible";
               } else {
                 // Set up storage
-                var transcriptRef = firebase.storage().ref().child("transcripts/" + memberName + "_" + email + "_" + uid + "/transcript");
+                var transcriptRef = firebase.storage().ref().child("transcripts/" + memberName + "_" + email + "_" + uid);
                 transcriptRef.put(transcript).then(function(snapshot) {
                   document.getElementById("loading").style.display = "none";
                   window.location.href = "dashboard.html"; // automatically redirects to the dashboard
