@@ -55,7 +55,7 @@
 
 
     // Event One // UPDATE
-    var eventNameOne = "First Meeting"; // UPDATE
+    var eventNameOne = "SunnyView Retirement Home Fall Carnival"; // UPDATE
     firebase.database().ref("events/" + eventNameOne + "/date").once("value").then(function(snapshot) { // UPDATE
       var date = snapshot.val();
       firebase.database().ref("events/" + eventNameOne + "/description").once("value").then(function(snapshot) {// UPDATE
@@ -201,7 +201,7 @@
         <div class="col-md-5">
           <h3 id="titleOne">Loading info...</h3> <!-- UPDATE -->
           <p id="descriptionOne">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('First Meeting')">Sign Up for Event <!-- UPDATE -->
+          <a class="btn btn-primary" style="color: white" onclick="signup('SunnyView Retirement Home Fall Carnival')">Sign Up for Event <!-- UPDATE -->
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
 
