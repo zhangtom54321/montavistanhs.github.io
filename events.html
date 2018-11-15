@@ -55,7 +55,7 @@
 
 
     // Event One // UPDATE
-    var eventNameOne = "Blossom Halloween Carnival"; // UPDATE
+    var eventNameOne = "City of Mountain View Tree Lighting"; // UPDATE
     firebase.database().ref("events/" + eventNameOne + "/date").once("value").then(function(snapshot) { // UPDATE
       var date = snapshot.val();
       firebase.database().ref("events/" + eventNameOne + "/description").once("value").then(function(snapshot) {// UPDATE
@@ -95,7 +95,7 @@
 
 
     // Event Two // UPDATE
-    var eventNameTwo = "Blossom Halloween Carnival Shift 2"; // UPDATE x2
+    var eventNameTwo = "Fantasy of Lights Walk Through - Stroller Elves Shift"; // UPDATE x2
     firebase.database().ref("events/" + eventNameTwo + "/date").once("value").then(function(snapshot) { // UPDATE
       var date = snapshot.val();
       firebase.database().ref("events/" + eventNameTwo + "/description").once("value").then(function(snapshot) {// UPDATE
@@ -131,6 +131,7 @@
       });
     });
 
+    /*
     // Event Three // UPDATE
     var eventNameThree = "Blossom Halloween Carnival Cleanup"; // UPDATE x2
     firebase.database().ref("events/" + eventNameThree + "/date").once("value").then(function(snapshot) { // UPDATE
@@ -240,7 +241,7 @@
           });
         });
       });
-    });
+    });*/
 
     </script>
 
@@ -313,7 +314,7 @@
         <div class="col-md-5">
           <h3 id="titleOne">Loading info...</h3> <!-- UPDATE -->
           <p id="descriptionOne">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Blossom Halloween Carnival')">Sign Up for Event <!-- UPDATE -->
+          <a class="btn btn-primary" style="color: white" onclick="signup('City of Mountain View Tree Lighting')">Sign Up for Event <!-- UPDATE -->
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
 
@@ -332,7 +333,7 @@
         <div class="col-md-5">
           <h3 id="titleTwo">Loading info...</h3> <!-- UPDATE -->
           <p id="descriptionTwo">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Blossom Halloween Carnival Shift 2')">Sign Up for Event <!-- UPDATE -->
+          <a class="btn btn-primary" style="color: white" onclick="signup('Fantasy of Lights Walk Through - Stroller Elves Shift')">Sign Up for Event <!-- UPDATE -->
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
         </div>
@@ -340,17 +341,17 @@
 
       <hr>
 
-      <!-- Event Three --> <!-- UPDATE -->
+      <!-- Event Three --> <!-- UPDATE
       <div class="row">
         <div class="col-md-7">
           <a href="">
-            <img id="imageThree"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+            <img id="imageThree"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="titleThree">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionThree">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Blossom Halloween Carnival Cleanup')">Sign Up for Event <!-- UPDATE -->
+          <h3 id="titleThree">Loading info...</h3> <!-- UPDATE
+          <p id="descriptionThree">Loading info...</p> <!-- UPDATE
+          <a class="btn btn-primary" style="color: white" onclick="signup('Blossom Halloween Carnival Cleanup')">Sign Up for Event <!-- UPDATE
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
         </div>
@@ -358,17 +359,17 @@
 
       <hr>
 
-      <!-- Event Four --> <!-- UPDATE -->
+      <!-- Event Four --> <!-- UPDATE
       <div class="row">
         <div class="col-md-7">
           <a href="">
-            <img id="imageFour"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+            <img id="imageFour"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="titleFour">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionFour">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Regnart Elementary School Fall Festival Shift 1')">Sign Up for Event <!-- UPDATE -->
+          <h3 id="titleFour">Loading info...</h3> <!-- UPDATE
+          <p id="descriptionFour">Loading info...</p> <!-- UPDATE
+          <a class="btn btn-primary" style="color: white" onclick="signup('Regnart Elementary School Fall Festival Shift 1')">Sign Up for Event <!-- UPDATE
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
         </div>
@@ -376,21 +377,21 @@
 
       <hr>
 
-      <!-- Event Five --> <!-- UPDATE -->
+      <!-- Event Five --> <!-- UPDATE
       <div class="row">
         <div class="col-md-7">
           <a href="">
-            <img id="imageFive"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+            <img id="imageFive"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="titleFive">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionFive">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Regnart Elementary School Fall Festival Shift 2')">Sign Up for Event <!-- UPDATE -->
+          <h3 id="titleFive">Loading info...</h3> <!-- UPDATE
+          <p id="descriptionFive">Loading info...</p> <!-- UPDATE
+          <a class="btn btn-primary" style="color: white" onclick="signup('Regnart Elementary School Fall Festival Shift 2')">Sign Up for Event <!-- UPDATE
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
         </div>
-      </div>
+      </div><!-- -->
 
 
 
