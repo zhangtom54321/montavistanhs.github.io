@@ -27,7 +27,7 @@ $(document).ready(function(){
                     });
                     var eventInfo = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList;
 
-                    $("#appendEvents").append("<div class=\"row\"><div class=\"col-md-7\"><a href=\"\"><img class=\"img-fluid rounded mb-3 mb-md-0\" src=\"" + picture + "\" alt=\"Loading image...\"> </a></div><div class=\"col-md-5\"><h3>" + eventName + "</h3> <p>" + eventInfo + "</p> <a class=\"btn btn-primary\" style=\"color: white\" onclick=\"signup('" + eventName + "')\">Sign Up for Event <span class=\"glyphicon glyphicon-chevron-right\"></span></a></div></div>");
+                    $("#appendEvents").append("<div class=\"row\"><div class=\"col-md-7\"><img class=\"img-fluid rounded mb-3 mb-md-0\" src=\"" + picture + "\" alt=\"Loading image...\"> </div><div class=\"col-md-5\"><h3>" + eventName + "</h3> <p>" + eventInfo + "</p> <a class=\"btn btn-primary\" style=\"color: white\" onclick=\"signup('" + eventName + "')\">Sign Up for Event <span class=\"glyphicon glyphicon-chevron-right\"></span></a></div></div>");
                     $("#appendEvents").append("<hr>")
 
                     document.getElementById("loading").style.display = "none";
