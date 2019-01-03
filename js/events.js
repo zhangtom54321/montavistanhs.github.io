@@ -1,43 +1,47 @@
 $(document).ready(function(){
   //$("#requests").append("<b>Appended text</b>");
 
-  // Event Two
-  var eventName = "City of Mountain View Tree Lighting";
-  firebase.database().ref("events/" + eventName + "/date").once("value").then(function(snapshot) {
-    var date = snapshot.val();
-    firebase.database().ref("events/" + eventName + "/description").once("value").then(function(snapshot) {
-      var description = snapshot.val();
-      firebase.database().ref("events/" + eventName + "/hours").once("value").then(function(snapshot) {
-        var hours = snapshot.val();
-        firebase.database().ref("events/" + eventName + "/location").once("value").then(function(snapshot) {
-          var location = snapshot.val();
-          firebase.database().ref("events/" + eventName + "/picture").once("value").then(function(snapshot) {
-            var picture = snapshot.val();
-            firebase.database().ref("events/" + eventName + "/time").once("value").then(function(snapshot) {
-              var time = snapshot.val();
-              //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
-              // Show which members are going
-              var membersRef = firebase.database().ref().child("events/"+eventName+"/members");
-              var memberList = "";
-              membersRef.once("value", function(snapshot) {
-                snapshot.forEach(function(child) {
-                  if (child.val() == true) {
-                    memberList = memberList + "<br>" + child.key;
-                  }
+  var eventsRef = firebase.database().ref().child("events/");
+  eventsRef.once("value", function(snapshot) {
+    snapshot.forEach(function(child) {
+      var eventName = child.key;
+      firebase.database().ref("events/" + eventName + "/date").once("value").then(function(snapshot) {
+        var date = snapshot.val();
+        firebase.database().ref("events/" + eventName + "/description").once("value").then(function(snapshot) {
+          var description = snapshot.val();
+          firebase.database().ref("events/" + eventName + "/hours").once("value").then(function(snapshot) {
+            var hours = snapshot.val();
+            firebase.database().ref("events/" + eventName + "/location").once("value").then(function(snapshot) {
+              var location = snapshot.val();
+              firebase.database().ref("events/" + eventName + "/picture").once("value").then(function(snapshot) {
+                var picture = snapshot.val();
+                firebase.database().ref("events/" + eventName + "/time").once("value").then(function(snapshot) {
+                  var time = snapshot.val();
+                  //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
+                  // Show which members are going
+                  var membersRef = firebase.database().ref().child("events/"+eventName+"/members");
+                  var memberList = "";
+                  membersRef.once("value", function(snapshot) {
+                    snapshot.forEach(function(child) {
+                      if (child.val() == true) {
+                        memberList = memberList + "<br>" + child.key;
+                      }
+                    });
+                    var eventInfo = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList;
+
+                    $("#appendEvents").append("<div class=\"row\"><div class=\"col-md-7\"><a href=\"\"><img class=\"img-fluid rounded mb-3 mb-md-0\" src=\"" + picture + "\" alt=\"Loading image...\"> </a></div><div class=\"col-md-5\"><h3>" + eventName + "</h3> <p>" + eventInfo + "</p> <a class=\"btn btn-primary\" style=\"color: white\" onclick=\"signup('Fantasy of Lights Walk Through - Stroller Elves Shift')\">Sign Up for Event <span class=\"glyphicon glyphicon-chevron-right\"></span></a></div></div>");
+                    $("#appendEvents").append("<hr>")
+
+                    document.getElementById("loading").style.display = "none";
+                  });
                 });
-                var eventInfo = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList;
-
-                $("#appendEvents").append("<div class=\"row\"><div class=\"col-md-7\"><a href=\"\"><img class=\"img-fluid rounded mb-3 mb-md-0\" src=\"" + picture + "\" alt=\"Loading image...\"> </a></div><div class=\"col-md-5\"><h3>" + eventName + "</h3> <p>" + eventInfo + "</p> <a class=\"btn btn-primary\" style=\"color: white\" onclick=\"signup('Fantasy of Lights Walk Through - Stroller Elves Shift')\">Sign Up for Event <span class=\"glyphicon glyphicon-chevron-right\"></span></a></div></div>");
-                $("#appendEvents").append("<hr>")
-
-                document.getElementById("loading").style.display = "none";
               });
             });
           });
-
         });
       });
-    });
+    })
+    //console.log(eventList);
   });
 });
 

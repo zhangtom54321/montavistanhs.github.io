@@ -53,8 +53,7 @@
     </script>
     <script> // Setting up event information from Firebase
 
-
-
+    /*
     // Event One // UPDATE
     var eventNameOne = "City of Mountain View Tree Lighting"; // UPDATE
     firebase.database().ref("events/" + eventNameOne + "/date").once("value").then(function(snapshot) { // UPDATE
@@ -84,7 +83,7 @@
                   document.getElementById("descriptionOne").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
                   document.getElementById("imageOne").src=picture; // UPDATE
 
-                  
+
                 });
               });
             });
@@ -170,7 +169,6 @@
       });
     });
 
-    /*
     // Event Four // UPDATE
     var eventNameFour = "Regnart Elementary School Fall Festival Shift 1"; // UPDATE x2
     firebase.database().ref("events/" + eventNameFour + "/date").once("value").then(function(snapshot) { // UPDATE
@@ -306,17 +304,17 @@
       </ol>
 
       <!-- TODO: Use JQuery .append() to replace this, refer to HSHacks admin page -->
-      <!-- Event One --> <!-- UPDATE -->
+      <!-- Event One --> <!-- UPDATE
       <div class="row">
         <div class="col-md-7">
           <a href="">
-            <img id="imageOne"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+            <img id="imageOne"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="titleOne">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionOne">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('City of Mountain View Tree Lighting')">Sign Up for Event <!-- UPDATE -->
+          <h3 id="titleOne">Loading info...</h3> <!-- UPDATE
+          <p id="descriptionOne">Loading info...</p> <!-- UPDATE
+          <a class="btn btn-primary" style="color: white" onclick="signup('City of Mountain View Tree Lighting')">Sign Up for Event <!-- UPDATE --
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
 
@@ -325,17 +323,17 @@
 
       <hr>
 
-      <!-- Event Two --> <!-- UPDATE -->
+      <!-- Event Two --> <!-- UPDATE --
       <div class="row">
         <div class="col-md-7">
           <a href="">
-            <img id="imageTwo"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+            <img id="imageTwo"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE --
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="titleTwo">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionTwo">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Fantasy of Lights Walk Through - Stroller Elves Shift')">Sign Up for Event <!-- UPDATE -->
+          <h3 id="titleTwo">Loading info...</h3> <!-- UPDATE --
+          <p id="descriptionTwo">Loading info...</p> <!-- UPDATE --
+          <a class="btn btn-primary" style="color: white" onclick="signup('Fantasy of Lights Walk Through - Stroller Elves Shift')">Sign Up for Event <!-- UPDATE --
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
         </div>
@@ -343,17 +341,17 @@
 
       <hr>
 
-      <!-- Event Three --> <!-- UPDATE -->
+      <!-- Event Three --> <!-- UPDATE --
       <div class="row">
         <div class="col-md-7">
           <a href="">
-            <img id="imageThree"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
+            <img id="imageThree"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE --
           </a>
         </div>
         <div class="col-md-5">
-          <h3 id="titleThree">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionThree">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Helping Hands Volunteers at McClellan Ranch')">Sign Up for Event <!-- UPDATE -->
+          <h3 id="titleThree">Loading info...</h3> <!-- UPDATE --
+          <p id="descriptionThree">Loading info...</p> <!-- UPDATE --
+          <a class="btn btn-primary" style="color: white" onclick="signup('Helping Hands Volunteers at McClellan Ranch')">Sign Up for Event <!-- UPDATE --
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
           <div id="requests">
