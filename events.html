@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
@@ -83,7 +84,7 @@
                   document.getElementById("descriptionOne").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
                   document.getElementById("imageOne").src=picture; // UPDATE
 
-                  document.getElementById("loading").style.display = "none";
+                  
                 });
               });
             });
@@ -355,9 +356,10 @@
           <a class="btn btn-primary" style="color: white" onclick="signup('Helping Hands Volunteers at McClellan Ranch')">Sign Up for Event <!-- UPDATE -->
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
+          <div id="requests">
+          </div>
         </div>
       </div>
-
       <hr>
 
       <!-- Event Four --> <!-- UPDATE
@@ -394,64 +396,8 @@
         </div>
       </div><!-- -->
 
-
-
-      <script>
-        function signup(eventName) { // UPDATE
-          var userId = firebase.auth().currentUser.uid;
-          // Get the user's full name
-          var name;
-          firebase.database().ref("users/" + userId + "/name").once("value").then(function(snapshot) {
-            name = snapshot.val();
-            //console.log(name);
-            firebase.database().ref("events/" + eventName + "/members/" + name).once("value").then(function(snapshot) {
-              if (snapshot.val() == true) {
-                // Member has already signed up
-                //console.log("Signed up");
-                window.alert("You've already signed up for " + eventName + ". Pick a different event!");
-              } else {
-                // Member has not signed up yet
-                //console.log("Not signed up");
-                // Add user's name to the list of people who signed up
-                var memberRegisteredKey = firebase.database().ref().child("events/" + eventName + "/members").push().key;
-                var updates = {};
-                updates["/" + name] = true;
-                firebase.database().ref().child("events/" + eventName + "/members").update(updates);
-
-                // Get number of hours for event
-                var eventHours;
-                firebase.database().ref("events/" + eventName + "/hours").once("value").then(function(snapshot) {
-                  eventHours = snapshot.val();
-                  //
-                  //console.log("Event hours: " + eventHours);
-                  // Get user's current hours
-                  var userHoursRef = firebase.database().ref("users/" + userId + "/hours");
-                  userHoursRef.once("value").then(function(snapshot) {
-                    var currUserHours = snapshot.val();
-                    //console.log("Current hours: " + currUserHours);
-                    // Update user's hours after event
-                    var newUserHoursKey = firebase.database().ref().child("users/" + userId).push().key;
-                    var updates = {};
-                    updates["/hours"] = currUserHours + eventHours;
-                    firebase.database().ref().child("users/" + userId).update(updates, function(error) {
-                      if (error) {
-                            // The write failed...
-                            window.alert("Sign up unsuccessful, please try again.");
-                      } else {
-                            // Data saved successfully!
-                            window.alert("Sign up for " + eventName + " successful!");
-                            location.reload();
-                      }
-                    });
-                  });
-
-                });
-              }
-            });
-          });
-        }
-      </script>
-      <hr>
+      <div id="appendEvents">
+      </div>
 
     </div>
     <!-- /.container -->
@@ -459,7 +405,7 @@
     <!-- Footer -->
     <footer class="py-5" style="background-color: #0076dd">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 2018 <a href="https://github.com/zhangtom54321" style="color:white">Tom Zhang</a></p>
+        <p class="m-0 text-center text-white">Copyright &copy; 2019 <a href="https://github.com/zhangtom54321" style="color:white">Tom Zhang</a></p>
       </div>
       <!-- /.container -->
     </footer>
@@ -467,6 +413,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/events.js"></script>
 
   </body>
 
