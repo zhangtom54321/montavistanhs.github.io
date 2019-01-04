@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="images/logo2.png"/>
+  <title>Admin Page - MVNHS</title>
+
+  <!-- Setting up Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBnOCmhnhkabFmce3umULC3viU50W0z_AI",
+        authDomain: "mvnhs-70ecc.firebaseapp.com",
+        databaseURL: "https://mvnhs-70ecc.firebaseio.com",
+        projectId: "mvnhs-70ecc",
+        storageBucket: "mvnhs-70ecc.appspot.com",
+        messagingSenderId: "175567916647"
+      };
+    firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      //document.getElementById("loading").style.display = "block";
+      if (user && user.uid == "j6lV8Yq1c7PBVkuHYVwutqp8YZ82") { // uid of admin account
+        // Access granted
+      } else {
+        // User is signed out or not the admin account
+        window.alert("Access unauthorized. Redirecting to homepage.")
+        window.location.href = "index.html"; // automatically redirects to the login page if user is not signed in
+      }
+    });
+  </script>
+
+  <body>
+    <h1>Admin Page</h1>
+    <hr>
+    <h2>Add a new volunteer event</h2>
+    <h3>Please make sure you enter all the information correctly!</h3>
+    <form id="eventAddForm" style="margin-top:30px">
+      Event Name (eg: Blossom Halloween Carnival):<br>
+      <input type="text" id="eventName" class="inputBox" style="width:80%"><br><br>
+      Event Description (eg: Start your Halloween early by volunteering at Blossom Birth's 24th Annual Trick-or-Treat):<br>
+      <input type="text" id="eventDescription" class="inputBox" style="width:80%"><br><br>
+      Event Date (eg: 10/28/18):<br>
+      <input type="text" id="eventDate" class="inputBox" style="width:80%"><br><br>
+      Event Time (eg: 10AM-12PM):<br>
+      <input type="text" id="eventTime" class="inputBox" style="width:80%"><br><br>
+      Number of Volunteer Hours Earned for Event (eg: 2):<br>
+      <input type="text" id="eventHours" class="inputBox" style="width:80%"><br><br>
+      Location (eg: 290 S California Ave Palo Alto,  CA 94306):<br>
+      <input type="text" id="eventLocation" class="inputBox" style="width:80%"><br><br>
+      Link to Event Picture (eg: https://countrylakesdental.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.jpg):<br>
+      <input type="text" id="eventPicture" class="inputBox" style="width:80%"><br><br>
+    </form>
+    <button onclick="newEvent()">Create Event</button>
+
+    <p id="demo"></p>
+    <hr>
+
+    <script>
+    function newEvent() {
+      var eventName = document.getElementById("eventName").value;
+      var eventDescription = document.getElementById("eventDescription").value;
+      var eventDate = document.getElementById("eventDate").value;
+      var eventTime = document.getElementById("eventTime").value;
+      var eventHours = document.getElementById("eventHours").value;
+      var eventLocation = document.getElementById("eventLocation").value;
+      var eventPicture = document.getElementById("eventPicture").value;
+
+      // Testing to make sure all fields are filled out
+      if (eventName.length == 0 || eventDescription.length == 0 || eventDate.length == 0 || eventTime.length == 0 || eventHours.length == 0 || eventLocation.length == 0 || eventPicture.length == 0) {
+        window.alert("Please make sure all event information fields are filled out and try again.")
+        return
+      }
+
+      // Attempt to convert eventHours string to int
+      if (isNaN(eventHours)) {
+        window.alert("Please make sure Number of Volunteer Hours Earned for Event is a valid integer and try again.")
+        return
+      }
+      else {
+        eventHours = parseInt(eventHours);
+      }
+
+      var functionDone = false;
+      // Creating event
+      firebase.database().ref("events/").once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          if (child.key == eventName) {
+            window.alert("Event with same name already created. Please change event name and try again.")
+            functionDone = true;
+            return
+          }
+        });
+      }).then(function() {
+        if (functionDone == true) {
+          return
+        }
+        firebase.database().ref("events/"+eventName).set({
+          description:eventDescription,
+          date:eventDate,
+          time:eventTime,
+          hours:eventHours,
+          location:eventLocation,
+          picture:eventPicture
+        }, function(error) {
+          if (error) {
+            // Error occured
+            window.alert("An error occured. Please try again.")
+          } else {
+            // Event created successfully
+            window.alert("Event created successfully.")
+          }
+        });
+      });
+    }
+
+    function moveFbRecord(oldRef, newRef) {
+      oldRef.once('value', function(snap)  {
+        newRef.set( snap.val(), function(error) {
+          if( !error ) {  oldRef.remove(); }
+          else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+        });
+      });
+   }
+    </script>
+  </body>
+</html>
