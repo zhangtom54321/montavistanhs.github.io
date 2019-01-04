@@ -109,7 +109,7 @@
       firebase.database().ref("events/").once("value", function(snapshot) {
         snapshot.forEach(function(child) {
           if (child.key == eventName) {
-            window.alert("Event with same name already created. Please change event name and try again.")
+            window.alert("An event with same name has already been created. Please change event name and try again.")
             functionDone = true;
             return
           }
