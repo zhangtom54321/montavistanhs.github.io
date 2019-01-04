@@ -21,9 +21,7 @@ $(document).ready(function(){
                   var memberList = "";
                   membersRef.once("value", function(snapshot) {
                     snapshot.forEach(function(child) {
-                      if (child.val() == true) {
-                        memberList = memberList + "<br>" + child.key;
-                      }
+                      memberList = memberList + "<br>" + child.key;
                     });
                     var eventInfo = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList;
 
@@ -44,6 +42,15 @@ $(document).ready(function(){
 
 function signup(eventName) {
   var userId = firebase.auth().currentUser.uid;
+
+  // Check if eventName exists (may not because of archiving)
+  firebase.database().ref("events/" + eventName).once("value", snapshot => {
+    if (!snapshot.exists()){
+      window.alert("The event was modified while you were signing up. Please try again!");
+      location.reload();
+    }
+  });
+
   // Get the user's full name
   var name;
   firebase.database().ref("users/" + userId + "/name").once("value").then(function(snapshot) {

@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="utf-8">
-  <link rel="shortcut icon" type="image/png" href="images/logo2.png"/>
-  <title>Admin Page - MVNHS</title>
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="images/logo2.png"/>
+    <title>Admin Page - MVNHS</title>
 
-  <!-- Setting up Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBnOCmhnhkabFmce3umULC3viU50W0z_AI",
-        authDomain: "mvnhs-70ecc.firebaseapp.com",
-        databaseURL: "https://mvnhs-70ecc.firebaseio.com",
-        projectId: "mvnhs-70ecc",
-        storageBucket: "mvnhs-70ecc.appspot.com",
-        messagingSenderId: "175567916647"
-      };
-    firebase.initializeApp(config);
+    <!-- Setting up Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+          apiKey: "AIzaSyBnOCmhnhkabFmce3umULC3viU50W0z_AI",
+          authDomain: "mvnhs-70ecc.firebaseapp.com",
+          databaseURL: "https://mvnhs-70ecc.firebaseio.com",
+          projectId: "mvnhs-70ecc",
+          storageBucket: "mvnhs-70ecc.appspot.com",
+          messagingSenderId: "175567916647"
+        };
+      firebase.initializeApp(config);
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      //document.getElementById("loading").style.display = "block";
-      if (user && user.uid == "j6lV8Yq1c7PBVkuHYVwutqp8YZ82") { // uid of admin account
-        // Access granted
-      } else {
-        // User is signed out or not the admin account
-        window.alert("Access unauthorized. Redirecting to homepage.")
-        window.location.href = "index.html"; // automatically redirects to the login page if user is not signed in
-      }
-    });
-  </script>
+      firebase.auth().onAuthStateChanged(function(user) {
+        //document.getElementById("loading").style.display = "block";
+        if (user && user.uid == "j6lV8Yq1c7PBVkuHYVwutqp8YZ82") { // uid of admin account
+          // Access granted
+        } else {
+          // User is signed out or not the admin account
+          window.alert("Access unauthorized. Redirecting to homepage.")
+          window.location.href = "index.html"; // automatically redirects to the login page if user is not signed in
+        }
+      });
+
+      // Get current unarchived events and display them
+      var currEventsList = "";
+      firebase.database().ref("events/").once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          currEventsList = currEventsList + "<br>" + child.key;
+        })
+      }).then(function() {
+        console.log(currEventsList);
+        document.getElementById("eventsList").innerHTML = "<b>Current (not archived) events:</b>" + currEventsList;
+      });
+    </script>
+  </head>
 
   <body>
     <h1>Admin Page</h1>
@@ -55,9 +68,16 @@
       <input type="text" id="eventPicture" class="inputBox" style="width:80%"><br><br>
     </form>
     <button onclick="newEvent()">Create Event</button>
-
     <p id="demo"></p>
     <hr>
+
+    <h2>Archive a volunteer event</h2>
+    <p id="eventsList"></p>
+    <form id="eventArchiveForm">
+      Event Name:<br>
+      <input type="text" id="archiveEventName" class="inputBox" style="width:80%"><br>
+    </form>
+    <button onclick = "archiveEvent()">Archive Event</button>
 
     <script>
     function newEvent() {
@@ -117,11 +137,39 @@
       });
     }
 
-    function moveFbRecord(oldRef, newRef) {
+    function archiveEvent(){
+      // Check if the event exists
+      var eventName = document.getElementById("archiveEventName").value;
+      var currEventsList = [];
+      firebase.database().ref("events/").once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          currEventsList.push(child.key)
+        })
+      }).then(function() {
+        console.log(currEventsList);
+        if (currEventsList.includes(eventName)) {
+          var oldRef = firebase.database().ref("events/" + eventName)
+          var newRef = firebase.database().ref("archived-events/" + eventName)
+          moveEvent(oldRef, newRef);
+        }
+        else {
+          window.alert("Please enter a current event name and try again.")
+          return;
+        }
+      });
+    }
+
+    function moveEvent(oldRef, newRef) {
       oldRef.once('value', function(snap)  {
         newRef.set( snap.val(), function(error) {
-          if( !error ) {  oldRef.remove(); }
-          else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+          if( !error ) {
+            oldRef.remove();
+            window.alert("Event archived successfully.")
+            location.reload();
+          }
+          else if(typeof(console) !== 'undefined' && console.error) {
+            console.error(error);
+          }
         });
       });
    }
