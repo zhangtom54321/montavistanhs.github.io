@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
@@ -49,201 +50,7 @@
           window.location.href = "login.html"; // automatically redirects to the login page if user is not signed in
         }
       });
-    </script>
-    <script> // Setting up event information from Firebase
-
-
-
-    // Event One // UPDATE
-    var eventNameOne = "City of Mountain View Tree Lighting"; // UPDATE
-    firebase.database().ref("events/" + eventNameOne + "/date").once("value").then(function(snapshot) { // UPDATE
-      var date = snapshot.val();
-      firebase.database().ref("events/" + eventNameOne + "/description").once("value").then(function(snapshot) {// UPDATE
-        var description = snapshot.val();
-        firebase.database().ref("events/" + eventNameOne + "/hours").once("value").then(function(snapshot) {// UPDATE
-          var hours = snapshot.val();
-          firebase.database().ref("events/" + eventNameOne + "/location").once("value").then(function(snapshot) {// UPDATE
-            var location = snapshot.val();
-            firebase.database().ref("events/" + eventNameOne + "/picture").once("value").then(function(snapshot) {// UPDATE
-              var picture = snapshot.val();
-              firebase.database().ref("events/" + eventNameOne + "/time").once("value").then(function(snapshot) {// UPDATE
-                var time = snapshot.val();
-                //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
-                // Show which members are going
-                var membersRef = firebase.database().ref().child("events/"+eventNameOne+"/members");// UPDATE
-                var memberList = "";
-                membersRef.once("value", function(snapshot) {
-                  snapshot.forEach(function(child) {
-                    if (child.val() == true) {
-                      memberList = memberList + "<br>" + child.key;
-                    }
-                  })
-                  //console.log("Member attending: " + memberList);
-                  document.getElementById("titleOne").innerHTML = eventNameOne; // UPDATE title_ and eventName_
-                  document.getElementById("descriptionOne").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
-                  document.getElementById("imageOne").src=picture; // UPDATE
-
-                  document.getElementById("loading").style.display = "none";
-                });
-              });
-            });
-
-          });
-        });
-      });
-    });
-
-
-    // Event Two // UPDATE
-    var eventNameTwo = "Fantasy of Lights Walk Through - Stroller Elves Shift"; // UPDATE x2
-    firebase.database().ref("events/" + eventNameTwo + "/date").once("value").then(function(snapshot) { // UPDATE
-      var date = snapshot.val();
-      firebase.database().ref("events/" + eventNameTwo + "/description").once("value").then(function(snapshot) {// UPDATE
-        var description = snapshot.val();
-        firebase.database().ref("events/" + eventNameTwo + "/hours").once("value").then(function(snapshot) {// UPDATE
-          var hours = snapshot.val();
-          firebase.database().ref("events/" + eventNameTwo + "/location").once("value").then(function(snapshot) {// UPDATE
-            var location = snapshot.val();
-            firebase.database().ref("events/" + eventNameTwo + "/picture").once("value").then(function(snapshot) {// UPDATE
-              var picture = snapshot.val();
-              firebase.database().ref("events/" + eventNameTwo + "/time").once("value").then(function(snapshot) {// UPDATE
-                var time = snapshot.val();
-                //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
-                // Show which members are going
-                var membersRef = firebase.database().ref().child("events/"+eventNameTwo+"/members");// UPDATE
-                var memberList = "";
-                membersRef.once("value", function(snapshot) {
-                  snapshot.forEach(function(child) {
-                    if (child.val() == true) {
-                      memberList = memberList + "<br>" + child.key;
-                    }
-                  })
-                  //console.log("Member attending: " + memberList);
-                  document.getElementById("titleTwo").innerHTML = eventNameTwo; // UPDATE title_ and eventName_
-                  document.getElementById("descriptionTwo").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
-                  document.getElementById("imageTwo").src=picture; // UPDATE
-                });
-              });
-            });
-
-          });
-        });
-      });
-    });
-
-
-    // Event Three // UPDATE
-    var eventNameThree = "Helping Hands Volunteers at McClellan Ranch"; // UPDATE x2
-    firebase.database().ref("events/" + eventNameThree + "/date").once("value").then(function(snapshot) { // UPDATE
-      var date = snapshot.val();
-      firebase.database().ref("events/" + eventNameThree + "/description").once("value").then(function(snapshot) {// UPDATE
-        var description = snapshot.val();
-        firebase.database().ref("events/" + eventNameThree + "/hours").once("value").then(function(snapshot) {// UPDATE
-          var hours = snapshot.val();
-          firebase.database().ref("events/" + eventNameThree + "/location").once("value").then(function(snapshot) {// UPDATE
-            var location = snapshot.val();
-            firebase.database().ref("events/" + eventNameThree + "/picture").once("value").then(function(snapshot) {// UPDATE
-              var picture = snapshot.val();
-              firebase.database().ref("events/" + eventNameThree + "/time").once("value").then(function(snapshot) {// UPDATE
-                var time = snapshot.val();
-                //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
-                // Show which members are going
-                var membersRef = firebase.database().ref().child("events/"+eventNameThree+"/members");// UPDATE
-                var memberList = "";
-                membersRef.once("value", function(snapshot) {
-                  snapshot.forEach(function(child) {
-                    if (child.val() == true) {
-                      memberList = memberList + "<br>" + child.key;
-                    }
-                  })
-                  //console.log("Member attending: " + memberList);
-                  document.getElementById("titleThree").innerHTML = eventNameThree; // UPDATE title_ and eventName_
-                  document.getElementById("descriptionThree").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
-                  document.getElementById("imageThree").src=picture; // UPDATE
-                });
-              });
-            });
-
-          });
-        });
-      });
-    });
-
-    /*
-    // Event Four // UPDATE
-    var eventNameFour = "Regnart Elementary School Fall Festival Shift 1"; // UPDATE x2
-    firebase.database().ref("events/" + eventNameFour + "/date").once("value").then(function(snapshot) { // UPDATE
-      var date = snapshot.val();
-      firebase.database().ref("events/" + eventNameFour + "/description").once("value").then(function(snapshot) {// UPDATE
-        var description = snapshot.val();
-        firebase.database().ref("events/" + eventNameFour + "/hours").once("value").then(function(snapshot) {// UPDATE
-          var hours = snapshot.val();
-          firebase.database().ref("events/" + eventNameFour + "/location").once("value").then(function(snapshot) {// UPDATE
-            var location = snapshot.val();
-            firebase.database().ref("events/" + eventNameFour + "/picture").once("value").then(function(snapshot) {// UPDATE
-              var picture = snapshot.val();
-              firebase.database().ref("events/" + eventNameFour + "/time").once("value").then(function(snapshot) {// UPDATE
-                var time = snapshot.val();
-                //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
-                // Show which members are going
-                var membersRef = firebase.database().ref().child("events/"+eventNameFour+"/members");// UPDATE
-                var memberList = "";
-                membersRef.once("value", function(snapshot) {
-                  snapshot.forEach(function(child) {
-                    if (child.val() == true) {
-                      memberList = memberList + "<br>" + child.key;
-                    }
-                  })
-                  //console.log("Member attending: " + memberList);
-                  document.getElementById("titleFour").innerHTML = eventNameFour; // UPDATE title_ and eventName_
-                  document.getElementById("descriptionFour").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
-                  document.getElementById("imageFour").src=picture; // UPDATE
-                });
-              });
-            });
-
-          });
-        });
-      });
-    });
-
-    // Event Five // UPDATE
-    var eventNameFive = "Regnart Elementary School Fall Festival Shift 2"; // UPDATE x2
-    firebase.database().ref("events/" + eventNameFive + "/date").once("value").then(function(snapshot) { // UPDATE
-      var date = snapshot.val();
-      firebase.database().ref("events/" + eventNameFive + "/description").once("value").then(function(snapshot) {// UPDATE
-        var description = snapshot.val();
-        firebase.database().ref("events/" + eventNameFive + "/hours").once("value").then(function(snapshot) {// UPDATE
-          var hours = snapshot.val();
-          firebase.database().ref("events/" + eventNameFive + "/location").once("value").then(function(snapshot) {// UPDATE
-            var location = snapshot.val();
-            firebase.database().ref("events/" + eventNameFive + "/picture").once("value").then(function(snapshot) {// UPDATE
-              var picture = snapshot.val();
-              firebase.database().ref("events/" + eventNameFive + "/time").once("value").then(function(snapshot) {// UPDATE
-                var time = snapshot.val();
-                //console.log(date+" "+description+" "+hours+" "+location+" "+picture+" "+time);
-                // Show which members are going
-                var membersRef = firebase.database().ref().child("events/"+eventNameFive+"/members");// UPDATE
-                var memberList = "";
-                membersRef.once("value", function(snapshot) {
-                  snapshot.forEach(function(child) {
-                    if (child.val() == true) {
-                      memberList = memberList + "<br>" + child.key;
-                    }
-                  })
-                  //console.log("Member attending: " + memberList);
-                  document.getElementById("titleFive").innerHTML = eventNameFive; // UPDATE title_ and eventName_
-                  document.getElementById("descriptionFive").innerHTML = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList; // UPDATE
-                  document.getElementById("imageFive").src=picture; // UPDATE
-                });
-              });
-            });
-
-          });
-        });
-      });
-    });*/
-
+      
     </script>
 
   </head>
@@ -253,7 +60,7 @@
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top" style="background-color: #0076dd">
       <div class="container">
-        <img style="width:60px; height:60px" src="images/logo2.png">
+        <img id = "navbarlogo" style="width:60px; height:60px" src="images/logo2.png">
         <a class="navbar-brand" href="index.html"><b>Monta Vista National Honor Society</b></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -282,7 +89,7 @@
 
     <div class="hero-image" id="eventsHero" style="height: 30%; min-height: 300px;">
       <div class="hero-text">
-        <h1 class="w3-animate-left" style="font-size: 80px;"><b>Volunteer Events</b></h1>
+        <h1 class="w3-animate-left hero-title"><b>Volunteer Events</b></h1>
       </div>
     </div>
 
@@ -304,154 +111,8 @@
         <li class="breadcrumb-item active">Events</li>
       </ol>
 
-      <!-- TODO: Use JQuery .append() to replace this, refer to HSHacks admin page -->
-      <!-- Event One --> <!-- UPDATE -->
-      <div class="row">
-        <div class="col-md-7">
-          <a href="">
-            <img id="imageOne"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3 id="titleOne">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionOne">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('City of Mountain View Tree Lighting')">Sign Up for Event <!-- UPDATE -->
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-
-        </div>
+      <div id="appendEvents">
       </div>
-
-      <hr>
-
-      <!-- Event Two --> <!-- UPDATE -->
-      <div class="row">
-        <div class="col-md-7">
-          <a href="">
-            <img id="imageTwo"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3 id="titleTwo">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionTwo">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Fantasy of Lights Walk Through - Stroller Elves Shift')">Sign Up for Event <!-- UPDATE -->
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        </div>
-      </div>
-
-      <hr>
-
-      <!-- Event Three --> <!-- UPDATE -->
-      <div class="row">
-        <div class="col-md-7">
-          <a href="">
-            <img id="imageThree"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE -->
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3 id="titleThree">Loading info...</h3> <!-- UPDATE -->
-          <p id="descriptionThree">Loading info...</p> <!-- UPDATE -->
-          <a class="btn btn-primary" style="color: white" onclick="signup('Helping Hands Volunteers at McClellan Ranch')">Sign Up for Event <!-- UPDATE -->
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        </div>
-      </div>
-
-      <hr>
-
-      <!-- Event Four --> <!-- UPDATE
-      <div class="row">
-        <div class="col-md-7">
-          <a href="">
-            <img id="imageFour"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3 id="titleFour">Loading info...</h3> <!-- UPDATE
-          <p id="descriptionFour">Loading info...</p> <!-- UPDATE
-          <a class="btn btn-primary" style="color: white" onclick="signup('Regnart Elementary School Fall Festival Shift 1')">Sign Up for Event <!-- UPDATE
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        </div>
-      </div>
-
-      <hr>
-
-      <!-- Event Five --> <!-- UPDATE
-      <div class="row">
-        <div class="col-md-7">
-          <a href="">
-            <img id="imageFive"class="img-fluid rounded mb-3 mb-md-0" src="images/placeholder.png" alt="Loading image..."> <!-- UPDATE
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3 id="titleFive">Loading info...</h3> <!-- UPDATE
-          <p id="descriptionFive">Loading info...</p> <!-- UPDATE
-          <a class="btn btn-primary" style="color: white" onclick="signup('Regnart Elementary School Fall Festival Shift 2')">Sign Up for Event <!-- UPDATE
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        </div>
-      </div><!-- -->
-
-
-
-      <script>
-        function signup(eventName) { // UPDATE
-          var userId = firebase.auth().currentUser.uid;
-          // Get the user's full name
-          var name;
-          firebase.database().ref("users/" + userId + "/name").once("value").then(function(snapshot) {
-            name = snapshot.val();
-            //console.log(name);
-            firebase.database().ref("events/" + eventName + "/members/" + name).once("value").then(function(snapshot) {
-              if (snapshot.val() == true) {
-                // Member has already signed up
-                //console.log("Signed up");
-                window.alert("You've already signed up for " + eventName + ". Pick a different event!");
-              } else {
-                // Member has not signed up yet
-                //console.log("Not signed up");
-                // Add user's name to the list of people who signed up
-                var memberRegisteredKey = firebase.database().ref().child("events/" + eventName + "/members").push().key;
-                var updates = {};
-                updates["/" + name] = true;
-                firebase.database().ref().child("events/" + eventName + "/members").update(updates);
-
-                // Get number of hours for event
-                var eventHours;
-                firebase.database().ref("events/" + eventName + "/hours").once("value").then(function(snapshot) {
-                  eventHours = snapshot.val();
-                  //
-                  //console.log("Event hours: " + eventHours);
-                  // Get user's current hours
-                  var userHoursRef = firebase.database().ref("users/" + userId + "/hours");
-                  userHoursRef.once("value").then(function(snapshot) {
-                    var currUserHours = snapshot.val();
-                    //console.log("Current hours: " + currUserHours);
-                    // Update user's hours after event
-                    var newUserHoursKey = firebase.database().ref().child("users/" + userId).push().key;
-                    var updates = {};
-                    updates["/hours"] = currUserHours + eventHours;
-                    firebase.database().ref().child("users/" + userId).update(updates, function(error) {
-                      if (error) {
-                            // The write failed...
-                            window.alert("Sign up unsuccessful, please try again.");
-                      } else {
-                            // Data saved successfully!
-                            window.alert("Sign up for " + eventName + " successful!");
-                            location.reload();
-                      }
-                    });
-                  });
-
-                });
-              }
-            });
-          });
-        }
-      </script>
-      <hr>
 
     </div>
     <!-- /.container -->
@@ -459,7 +120,7 @@
     <!-- Footer -->
     <footer class="py-5" style="background-color: #0076dd">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 2018 <a href="https://github.com/zhangtom54321" style="color:white">Tom Zhang</a></p>
+        <p class="m-0 text-center text-white">Copyright &copy; 2019 <a href="https://github.com/zhangtom54321" style="color:white">Tom Zhang</a></p>
       </div>
       <!-- /.container -->
     </footer>
@@ -467,6 +128,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/events.js"></script>
 
   </body>
 
