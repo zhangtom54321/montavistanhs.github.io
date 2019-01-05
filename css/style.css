@@ -147,13 +147,15 @@ body, html {
 
 .round a {
 		color: white;
+    font-size: 25px;
+
 }
 
 .round .button {
 		display: inline-block;
-		width: 130px;
-		height: 40px;
-		line-height: 40px;
+		width: 250px;
+		height: 50px;
+		line-height: 49px;
 		margin: 20px;
 		position: relative;
 		overflow: hidden;
@@ -166,13 +168,14 @@ body, html {
 		position: absolute;
 		z-index: -1;
 		background: #0076dd;
-		height: 150px;
-		width: 200px;
+		height: 120px;
+		width: 400px;
 		border-radius: 50%;
 }
 
 .round .button:hover {
 		color: #fff;
+    text-decoration: none;
 }
 
 .round .button:nth-child(1):before {
@@ -211,6 +214,10 @@ body, html {
   font-size: 100px;
 }
 
+.hero-title-2 {
+  font-size: 60px;
+}
+
 p {
   overflow-x: hidden;
 }
@@ -244,5 +251,9 @@ h6 {
 
   .hero-title {
     font-size: 50px;
+  }
+
+  .hero-title-2 {
+    font-size: 30px;
   }
 }
