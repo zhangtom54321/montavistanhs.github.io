@@ -63,7 +63,7 @@ function signup(eventName) {
         window.alert("You've already signed up for " + eventName + ". Pick a different event!");
       } else {
         // Member has not signed up yet
-        //console.log("Not signed up");
+
         // Add user's name to the list of people who signed up
         var memberRegisteredKey = firebase.database().ref().child("events/" + eventName + "/members").push().key;
         var updates = {};
@@ -91,8 +91,22 @@ function signup(eventName) {
                     window.alert("Sign up unsuccessful, please try again.");
               } else {
                     // Data saved successfully!
-                    window.alert("Sign up for " + eventName + " successful!");
-                    location.reload();
+
+                    // Get date of event
+                    var eventDate;
+                    firebase.database().ref("events/" + eventName + "/date").once("value").then(function(snapshot) {
+                      eventDate = snapshot.val();
+
+                      // Add the event to the user's list of signed up events
+                      var eventRegisteredKey = firebase.database().ref().child("users/" + userId + "/events").push().key;
+                      var eventUpdates = {};
+                      eventUpdates["/" + eventName] = "Date: " + eventDate + ", Hours: " + eventHours;
+                      firebase.database().ref().child("users/" + userId + "/events").update(eventUpdates);
+
+                      // Success message
+                      window.alert("Sign up for " + eventName + " successful!");
+                      location.reload();
+                    });
               }
             });
           });
