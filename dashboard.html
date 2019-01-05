@@ -39,11 +39,16 @@
         if (user) {
           // User is signed in.
           var uid = user.uid;
+          var email = user.email;
 
           // Setting hours
-          firebase.database().ref("users/"+uid+"/hours").once("value").then(function(snapshot) {
-            document.getElementById("hoursCount").innerHTML = "<b>Hours: " + snapshot.val() + "</b>";
-            document.getElementById("loading").style.display = "none";
+          firebase.database().ref("users/"+uid+"/hours").once("value").then(function(hoursSnapshot) {
+            firebase.database().ref("users/"+uid+"/name").once("value").then(function(nameSnapshot) {
+              firebase.database().ref("users/"+uid+"/grade").once("value").then(function(gradeSnapshot) {
+                document.getElementById("hoursCount").innerHTML = "<b>Name: " + nameSnapshot.val() + "<br><br>Email: " + email + "<br><br>Grade: " + gradeSnapshot.val() + "<br><br>Hours: " + hoursSnapshot.val() + "</b>";
+                document.getElementById("loading").style.display = "none";
+              });
+            });
           });
 
           // Setting list of events
@@ -115,7 +120,7 @@
       </div>
 
       <div class="form" style="margin: 30px 0px">
-        <h5 id="hoursCount">Loading hours...</h5>
+        <h5 id="hoursCount">Loading...</h5>
         <hr>
         <h5><b>Events You've Signed Up For</b></h5>
         <h6 id="eventsList"></h6>
