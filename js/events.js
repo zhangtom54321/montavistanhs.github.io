@@ -21,7 +21,7 @@ $(document).ready(function(){
                   var memberList = "";
                   membersRef.once("value", function(snapshot) {
                     snapshot.forEach(function(child) {
-                      memberList = memberList + "<br>" + child.key;
+                      memberList = memberList + "<br>" + child.val();
                     });
                     var eventInfo = "<b>About this event:</b> " + description + "<br><br><b>Date:</b> " + date + "<br><br><b>Time:</b> " + time + "<br><br><b>Volunteer Hours:</b> " + hours + "<br><br><b>Location:</b> " + location + "<br><br><b>Members going:</b> " + memberList;
 
@@ -56,8 +56,8 @@ function signup(eventName) {
   firebase.database().ref("users/" + userId + "/name").once("value").then(function(snapshot) {
     name = snapshot.val();
     //console.log(name);
-    firebase.database().ref("events/" + eventName + "/members/" + name).once("value").then(function(snapshot) {
-      if (snapshot.val() == true) {
+    firebase.database().ref("events/" + eventName + "/members/" + userId).once("value").then(function(snapshot) {
+      if (snapshot.val() == name) {
         // Member has already signed up
         //console.log("Signed up");
         window.alert("You've already signed up for " + eventName + ". Pick a different event!");
@@ -67,7 +67,7 @@ function signup(eventName) {
         // Add user's name to the list of people who signed up
         var memberRegisteredKey = firebase.database().ref().child("events/" + eventName + "/members").push().key;
         var updates = {};
-        updates["/" + name] = true;
+        updates["/" + userId] = name;
         firebase.database().ref().child("events/" + eventName + "/members").update(updates);
 
         // Get number of hours for event
