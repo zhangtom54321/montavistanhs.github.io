@@ -181,7 +181,7 @@ body, html {
 .round .button:nth-child(1):before {
 		top: 100%;
 		left: 100%;
-		transition: all .7s;
+		transition: all .4s;
 }
 
 .round .button:nth-child(1):hover:before {
